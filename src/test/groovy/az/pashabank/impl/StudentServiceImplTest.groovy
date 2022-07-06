@@ -89,7 +89,7 @@ class StudentServiceImplTest extends Specification {
         given:
         Long id = 1
         when:
-        def result = studentService.deleteById(id)
+        studentService.deleteById(id)
         then:
         1 * studentRepository.deleteById(id)
         noExceptionThrown()
@@ -100,7 +100,7 @@ class StudentServiceImplTest extends Specification {
         Long id = 1
 
         when:
-        def result = studentService.findById(id)
+        studentService.findById(id)
         then:
         1 * studentRepository.findById(id)
         noExceptionThrown()
@@ -108,7 +108,7 @@ class StudentServiceImplTest extends Specification {
 
     def "test deleteAll"() {
         when:
-        def result = studentService.deleteAll()
+        studentService.deleteAll()
 
         then:
         1 * studentRepository.deleteAll()
