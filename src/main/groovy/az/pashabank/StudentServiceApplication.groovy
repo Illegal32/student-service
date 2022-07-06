@@ -11,5 +11,3 @@ class StudentServiceApplication {
     }
 
 }
-
-//Just for fun

@@ -20,11 +20,8 @@ import java.util.Optional;
 public class StudentController {
     private final StudentServiceImpl studentService;
 
-    private final StudentRepository studentRepository;
-
     public StudentController(StudentServiceImpl studentService, StudentRepository studentRepository) {
         this.studentService = studentService;
-        this.studentRepository = studentRepository;
     }
 
     @PostMapping
