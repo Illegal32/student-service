@@ -10,6 +10,7 @@ package az.pashabank.service;
 import az.pashabank.model.StudentEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface StudentService {
@@ -18,7 +19,7 @@ public interface StudentService {
 
     StudentEntity save(StudentEntity studentEntity);
 
-    Iterable<StudentEntity> findAll();
+    List<StudentEntity> findAll();
 
     void deleteById(Long id);
 

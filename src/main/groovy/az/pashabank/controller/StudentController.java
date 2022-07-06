@@ -12,6 +12,7 @@ import az.pashabank.repository.StudentRepository;
 import az.pashabank.service.impl.StudentServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -30,7 +31,7 @@ public class StudentController {
     }
 
     @GetMapping("/all")
-    public Iterable<StudentEntity> findAll() {
+    public List<StudentEntity> findAll() {
         return studentService.findAll();
     }
 
