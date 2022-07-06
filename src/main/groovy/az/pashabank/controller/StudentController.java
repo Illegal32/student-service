@@ -20,7 +20,7 @@ import java.util.Optional;
 public class StudentController {
     private final StudentServiceImpl studentService;
 
-    public StudentController(StudentServiceImpl studentService, StudentRepository studentRepository) {
+    public StudentController(StudentServiceImpl studentService) {
         this.studentService = studentService;
     }
 
