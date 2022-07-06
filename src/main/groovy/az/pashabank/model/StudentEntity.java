@@ -8,10 +8,8 @@
 package az.pashabank.model;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Table(name = "student_info")
 @Entity

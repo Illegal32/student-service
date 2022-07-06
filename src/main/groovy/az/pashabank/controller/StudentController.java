@@ -8,7 +8,6 @@
 package az.pashabank.controller;
 
 import az.pashabank.model.StudentEntity;
-import az.pashabank.repository.StudentRepository;
 import az.pashabank.service.impl.StudentServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
