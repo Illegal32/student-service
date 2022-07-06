@@ -17,7 +17,6 @@ import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
-    StudentService studentService;
 
     final String DOMAIN = "@pashabank.az";
 
@@ -35,7 +34,7 @@ public class StudentServiceImpl implements StudentService {
 
         System.out.println(lastVersionEmail);
 
-        return studentRepository.save(StudentEntity.builder().
+        return studentRepository.save(StudentEntity.builder().id(id).
                 name(name).surname(surname).email(lastVersionEmail).build());
 
     }
@@ -47,7 +46,7 @@ public class StudentServiceImpl implements StudentService {
 
         studentEntity = studentRepository.save(studentEntity);
 
-        return studentService.generateStudentEmailAccount(studentEntity.getId(),
+        return generateStudentEmailAccount(studentEntity.getId(),
                 studentEntity.getName(),
                 studentEntity.getSurname());
     }
@@ -69,7 +68,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void deleteAll() {
-        studentService.deleteAll();
+        studentRepository.deleteAll();
     }
 }
 
