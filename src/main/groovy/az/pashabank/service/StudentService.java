@@ -7,23 +7,22 @@
 
 package az.pashabank.service;
 
-import az.pashabank.model.StudentEntity;
-import org.springframework.web.bind.annotation.PathVariable;
+import az.pashabank.model.dto.StudentDto;
+import az.pashabank.model.dto.StudentRequestDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface StudentService {
 
-    StudentEntity generateStudentEmailAccount(Long id, String name, String surname);
+    String generateStudentEmailAccount(Long id, String name, String surname);
 
-    StudentEntity save(StudentEntity studentEntity);
+    StudentRequestDto save(StudentRequestDto studentRequestDto);
 
-    List<StudentEntity> findAll();
+    List<StudentDto> findAll();
 
     void deleteById(Long id);
 
-    Optional<StudentEntity> findById(Long id);
+    StudentDto findById(Long id);
 
     void deleteAll();
 

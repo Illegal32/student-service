@@ -7,12 +7,14 @@
 
 package az.pashabank.repository;
 
-import az.pashabank.model.StudentEntity;
-import org.springframework.data.repository.CrudRepository;
+import az.pashabank.model.entity.StudentEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface StudentRepository extends CrudRepository<StudentEntity, Long> {
+@Repository
+public interface StudentRepository extends JpaRepository<StudentEntity, Long> {
 
     StudentEntity findStudentEntityByIdOrNameOrSurname(Long id, String name, String surname);
 

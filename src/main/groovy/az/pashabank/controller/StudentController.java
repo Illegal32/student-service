@@ -7,12 +7,13 @@
 
 package az.pashabank.controller;
 
-import az.pashabank.model.StudentEntity;
+import az.pashabank.model.dto.StudentDto;
+import az.pashabank.model.dto.StudentRequestDto;
 import az.pashabank.service.impl.StudentServiceImpl;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/students")
@@ -25,12 +26,13 @@ public class StudentController {
     }
 
     @PostMapping
-    public StudentEntity save(@RequestBody StudentEntity studentEntity) {
-        return studentService.save(studentEntity);
+    public ResponseEntity<StudentRequestDto> save(@RequestBody StudentRequestDto studentRequestDto) {
+        var result = studentService.save(studentRequestDto);
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/all")
-    public List<StudentEntity> findAll() {
+    public List<StudentDto> findAll() {
         return studentService.findAll();
     }
 
@@ -40,7 +42,7 @@ public class StudentController {
     }
 
     @GetMapping(path = "/{id}") // update etmek ucundur
-    public Optional<StudentEntity> findById(@PathVariable Long id) {
+    public StudentDto findById(@PathVariable Long id) {
         return studentService.findById(id);
     }
 

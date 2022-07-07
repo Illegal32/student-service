@@ -5,7 +5,7 @@
  * Project Name : student-service
  */
 
-package az.pashabank.model;
+package az.pashabank.model.entity;
 
 import lombok.*;
 

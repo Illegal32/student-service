@@ -7,53 +7,51 @@
 
 package az.pashabank.service.impl;
 
-import az.pashabank.model.StudentEntity;
+import az.pashabank.mapper.StudentMapper;
+import az.pashabank.model.entity.StudentEntity;
+import az.pashabank.model.dto.StudentDto;
+import az.pashabank.model.dto.StudentRequestDto;
 import az.pashabank.repository.StudentRepository;
 import az.pashabank.service.StudentService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
 
     final String DOMAIN = "@pashabank.az";
 
+    private final StudentMapper studentMapper;
+
     private final StudentRepository studentRepository;
 
     public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
+        studentMapper = StudentMapper.INSTANCE;
     }
 
     @Override
-    public StudentEntity generateStudentEmailAccount(Long id, String name, String surname) {
+    public String generateStudentEmailAccount(Long id, String name, String surname) {
         String firstLetter = String.valueOf(name.charAt(0));
         String email = firstLetter.concat(surname).concat(String.valueOf(id));
-        String lastVersionEmail = email.concat(DOMAIN);
 
-        System.out.println(lastVersionEmail);
-
-        return studentRepository.save(StudentEntity.builder().id(id).
-                name(name).surname(surname).email(lastVersionEmail).build());
-
+        return email.concat(DOMAIN);
     }
 
     @Override
-    public StudentEntity save(StudentEntity studentEntity) {
-        studentEntity.setName(studentEntity.getName());
-        studentEntity.setSurname(studentEntity.getSurname());
+    public StudentRequestDto save(StudentRequestDto studentRequestDto) {
+        StudentEntity student = StudentMapper.INSTANCE.dtoToStudentEntity(studentRequestDto);
+        student.setEmail(generateStudentEmailAccount(student.getId(), student.getName(), student.getSurname()));
 
-        studentEntity = studentRepository.save(studentEntity);
-
-        return generateStudentEmailAccount(studentEntity.getId(),
-                studentEntity.getName(),
-                studentEntity.getSurname());
+        return StudentMapper.INSTANCE.entityToStudentRequestDto(studentRepository.save(student));
     }
 
     @Override
-    public List<StudentEntity> findAll() {
-        return studentRepository.findAll();
+    public List<StudentDto> findAll() {
+        return studentRepository.findAll().stream().
+                map(studentMapper::entityToStudentDto).collect(Collectors.toList());
     }
 
     @Override
@@ -62,8 +60,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Optional<StudentEntity> findById(Long id) {
-        return studentRepository.findById(id);
+    public StudentDto findById(Long id) {
+        return studentMapper.entityToStudentDto(studentRepository.
+                findById(id).orElseThrow(() -> new RuntimeException("Not Found Person")));
     }
 
     @Override
