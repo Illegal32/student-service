@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'az.pashabank'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 sourceCompatibility = '11'
 
 configurations {
@@ -19,6 +19,14 @@ repositories {
 }
 
 dependencies {
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude group: "org.junit.vintage", module: "junit-vintage-engine"
+    }
+    testImplementation 'org.spockframework:spock-spring:2.1-groovy-3.0'
+    testImplementation 'org.spockframework:spock-core:2.1-groovy-3.0'
+    testImplementation('io.github.benas:random-beans:3.9.0')
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.codehaus.groovy:groovy'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
