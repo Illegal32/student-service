@@ -13,7 +13,7 @@
 //import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 //import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 //
-//class StudentControllerTest extends Specification {
+//class StudentControllerTestOld extends Specification {
 //
 //    private StudentController studentController
 //
@@ -28,45 +28,6 @@
 //
 //        mockMvc = MockMvcBuilders.standaloneSetup(studentController)
 //                .build()
-//    }
-//
-//    def "Save"() {
-//
-//        Long id = 1
-//        String name = "Nadir"
-//        String surname = "Jabbarli"
-//        String email = "NJabbarli1@pashabank.az"
-//
-//        given:
-//        def exceptedRequest = '''
-//                                {
-//                                    "name": "Nadir",
-//                                    "surname": "Jabbarli"
-//                                }
-//        '''
-//
-//        def exceptedResponse = '''
-//                                {
-//                                    "id": 1,
-//                                    "name": "Nadir",
-//                                    "surname": "Jabbarli",
-//                                    "email": "NJabbarli1@pashabank.az"
-//                                }
-//        '''
-//
-//        def studentEntityBefore = StudentEntity.builder().name(name).surname(surname).build()
-//        def studentEntityAfter = StudentEntity.builder().id(id).name(name).surname(surname).email(email).build()
-//
-//        def url = "/students"
-//
-//        when:
-//        def result = mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON).content(exceptedRequest)).andReturn();
-//
-//        then:
-//        1 * studentService.save(studentEntityBefore) >> studentEntityAfter
-//        def response = result.response
-//        response.getStatus() == 200
-//        JSONAssert.assertEquals(exceptedResponse, response.getContentAsString(), false)
 //    }
 //
 //    def "findAll"() {
