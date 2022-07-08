@@ -9,6 +9,7 @@ package az.pashabank.controller;
 
 import az.pashabank.model.dto.StudentDto;
 import az.pashabank.model.dto.StudentRequestDto;
+import az.pashabank.repository.StudentRepository;
 import az.pashabank.service.impl.StudentServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class StudentController {
     private final StudentServiceImpl studentService;
+    StudentRepository studentRepository;
 
     public StudentController(StudentServiceImpl studentService) {
         this.studentService = studentService;
@@ -50,4 +52,5 @@ public class StudentController {
     public void deleteAll() {
         studentService.deleteAll();
     }
+
 }

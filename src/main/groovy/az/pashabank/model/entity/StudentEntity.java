@@ -11,7 +11,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Table(name = "student_info")
+@Table(name = "student")
 @Entity
 @Data
 @Builder

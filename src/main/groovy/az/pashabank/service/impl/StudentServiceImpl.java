@@ -29,15 +29,12 @@ public class StudentServiceImpl implements StudentService {
 
     public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
-        studentMapper = StudentMapper.INSTANCE;
+        this.studentMapper = StudentMapper.INSTANCE;
     }
 
     @Override
     public String generateStudentEmailAccount(Long id, String name, String surname) {
-        String firstLetter = String.valueOf(name.charAt(0));
-        String email = firstLetter.concat(surname).concat(String.valueOf(id));
-
-        return email.concat(DOMAIN);
+        return String.valueOf(name.charAt(0)).concat(surname).concat(String.valueOf(id)).concat(DOMAIN);
     }
 
     @Override
@@ -69,5 +66,7 @@ public class StudentServiceImpl implements StudentService {
     public void deleteAll() {
         studentRepository.deleteAll();
     }
+
+
 }
 
