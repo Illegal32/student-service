@@ -8,7 +8,7 @@
 //import org.junit.jupiter.api.BeforeEach
 //import spock.lang.Specification
 //
-//class StudentServiceImplTest extends Specification {
+//class StudentServiceImplTestOld extends Specification {
 //
 //    final String DOMAIN = "@pashabank.az";
 //
