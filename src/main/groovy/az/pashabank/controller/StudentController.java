@@ -28,9 +28,8 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<StudentRequestDto> save(@RequestBody StudentRequestDto studentRequestDto) {
-        var result = studentService.save(studentRequestDto);
-        return ResponseEntity.ok(result);
+    public StudentRequestDto save(@RequestBody StudentRequestDto studentRequestDto) {
+        return studentService.save(studentRequestDto);
     }
 
     @GetMapping("/all")
