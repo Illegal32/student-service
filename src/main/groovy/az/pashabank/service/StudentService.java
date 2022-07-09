@@ -9,6 +9,7 @@ package az.pashabank.service;
 
 import az.pashabank.model.dto.StudentDto;
 import az.pashabank.model.dto.StudentRequestDto;
+import az.pashabank.model.entity.StudentEntity;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface StudentService {
 
     String generateStudentEmailAccount(Long id, String name, String surname);
 
-    StudentRequestDto save(StudentRequestDto studentRequestDto);
+    StudentEntity save(StudentRequestDto studentRequestDto);
 
     List<StudentDto> findAll();
 

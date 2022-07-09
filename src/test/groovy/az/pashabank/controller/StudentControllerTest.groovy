@@ -2,6 +2,7 @@ package az.pashabank.controller
 
 
 import az.pashabank.model.dto.StudentRequestDto
+import az.pashabank.model.entity.StudentEntity
 import az.pashabank.service.impl.StudentServiceImpl
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.http.MediaType
@@ -43,6 +44,7 @@ class StudentControllerTest extends Specification {
         given:
 
         given:
+        Long id = 1L
         var name = "Nadir"
         var surname = "Jabbarli"
         var email = "NJabbarli1@pashabank.az"
@@ -56,13 +58,15 @@ class StudentControllerTest extends Specification {
 
         def exceptedResponse = '''
                                 {
+                                    "id": 1,
                                     "name": "Nadir",
-                                    "surname": "Jabbarli"
+                                    "surname": "Jabbarli",
+                                    "email": "NJabbarli1@pashabank.az"
                                 }
         '''
 
         def studentRequestDtoBefore = StudentRequestDto.builder().name(name).surname(surname).build()
-        def studentRequestDtoAfter = StudentRequestDto.builder().name(name).surname(surname).email(email).build()
+        def studentEntity = StudentEntity.builder().id(id).name(name).surname(surname).email(email).build()
 
         def url = "/students"
 
@@ -71,7 +75,7 @@ class StudentControllerTest extends Specification {
                 content(exceptedRequest)).andReturn()
 
         then:
-        1 * studentService.save(studentRequestDtoBefore) >> studentRequestDtoAfter
+        1 * studentService.save(studentRequestDtoBefore) >> studentEntity
         def response = result.response
         response.getStatus() == 200
         JSONAssert.assertEquals(exceptedResponse, response.getContentAsString(), false)

@@ -38,11 +38,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentRequestDto save(StudentRequestDto studentRequestDto) {
+    public StudentEntity save(StudentRequestDto studentRequestDto) {
         StudentEntity student = StudentMapper.INSTANCE.dtoToStudentEntity(studentRequestDto);
         student.setEmail(generateStudentEmailAccount(student.getId(), student.getName(), student.getSurname()));
 
-        return StudentMapper.INSTANCE.entityToStudentRequestDto(studentRepository.save(student));
+        return studentRepository.save(student);
     }
 
     @Override
