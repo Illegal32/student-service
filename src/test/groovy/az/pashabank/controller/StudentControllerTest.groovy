@@ -1,15 +1,18 @@
 package az.pashabank.controller
 
-
+import az.pashabank.model.dto.StudentDto
 import az.pashabank.model.dto.StudentRequestDto
 import az.pashabank.model.entity.StudentEntity
 import az.pashabank.service.impl.StudentServiceImpl
 import org.junit.jupiter.api.BeforeEach
+import org.mockito.BDDMockito
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import spock.lang.Specification
 import org.skyscreamer.jsonassert.JSONAssert
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 
 import az.pashabank.service.impl.StudentServiceImpl
@@ -22,6 +25,7 @@ import spock.lang.Specification
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
 
 class StudentControllerTest extends Specification {
 
@@ -31,6 +35,8 @@ class StudentControllerTest extends Specification {
 
     MockMvc mockMvc
 
+//    StudentRequestDto dtoB
+
     void setup() {
         studentService = Mock()
 
@@ -38,6 +44,12 @@ class StudentControllerTest extends Specification {
 
         mockMvc = MockMvcBuilders.standaloneSetup(studentController)
                 .build()
+//
+//         dtoB = StudentRequestDto.builder().name("Ali").surname("Jabbarli")
+//                .email("AJabbarli1@pashabank.az").build()
+////        (name :"Ali",
+////                surname: "Jabbarli", email: "AJabbarli1@pashabank.az")
+
     }
 
     def "test save"() {
@@ -119,5 +131,45 @@ class StudentControllerTest extends Specification {
         def response = result.response
         response.getStatus() == 200
 
+    }
+
+    def "update"() {
+
+        given:
+
+        Long id = 1L
+        def requestDto = new StudentRequestDto(name :"Nadir",
+                surname: "Jabbarli", email: "NJabbarli1@pashabank.az")
+
+        def dto = new StudentDto(id: 1, name :"Nadir",
+                surname: "Jabbarli")
+
+
+        def exceptedRequest = '''
+                                {
+                                    "name": "Nadir",
+                                    "surname": "Jabbarli",
+                                    "email": "NJabbarli1@pashabank.az"
+                                }
+        '''
+
+        def exceptedResponse = '''
+                                {
+                                    "name": "Nadir",
+                                    "surname": "Jabbarli"
+                                }
+        '''
+
+        def url = "/students/update/{id}"
+
+        when:
+        def result = mockMvc.perform(put(url, id).contentType(MediaType.APPLICATION_JSON).
+                content(exceptedRequest)).andReturn()
+
+        then:
+        1 * studentService.update(id, requestDto) >> dto
+        def response = result.getResponse()
+        response.getStatus() == 200
+        JSONAssert.assertEquals(exceptedResponse, response.getContentAsString(), false)
     }
 }

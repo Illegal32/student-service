@@ -10,9 +10,7 @@ package az.pashabank.controller;
 import az.pashabank.model.dto.StudentDto;
 import az.pashabank.model.dto.StudentRequestDto;
 import az.pashabank.model.entity.StudentEntity;
-import az.pashabank.repository.StudentRepository;
 import az.pashabank.service.impl.StudentServiceImpl;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +31,7 @@ public class StudentController {
     }
 
     @GetMapping("/all")
-    public List<StudentDto> findAll() {
+    public List<StudentRequestDto> findAll() {
         return studentService.findAll();
     }
 
@@ -42,7 +40,7 @@ public class StudentController {
         studentService.deleteById(id);
     }
 
-    @GetMapping(path = "/{id}") // update etmek ucundur
+    @GetMapping(path = "/{id}")
     public StudentDto findById(@PathVariable Long id) {
         return studentService.findById(id);
     }
@@ -52,4 +50,8 @@ public class StudentController {
         studentService.deleteAll();
     }
 
+    @PutMapping(value = "/update/{id}")
+    public StudentDto update(@PathVariable Long id, @RequestBody StudentRequestDto studentRequestDto) {
+        return studentService.update(id, studentRequestDto);
+    }
 }

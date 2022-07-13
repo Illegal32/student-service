@@ -1,7 +1,7 @@
 package az.pashabank.impl
 
-
 import az.pashabank.mapper.StudentMapper
+import az.pashabank.model.dto.StudentDto
 import az.pashabank.model.dto.StudentRequestDto
 import az.pashabank.model.entity.StudentEntity
 import az.pashabank.repository.StudentRepository
@@ -17,6 +17,10 @@ class StudentServiceImplTest extends Specification {
     StudentEntity studentEntityAfter
 
     StudentEntity studentEntityBefore
+
+    StudentRequestDto studentRequestDtoBefore
+
+    StudentDto studentDtoAfter
 
     StudentMapper studentMapper
 
@@ -44,11 +48,9 @@ class StudentServiceImplTest extends Specification {
         studentService.save(studentRequestDto)
 
         then:
-//        1 * studentMapper.dtoToStudentEntity(studentRequestDto)
         1 * studentRepository.save(studentEntityBefore) >> studentEntityAfter
         noExceptionThrown()
     }
-
 
     def "FindAll"() {
 
@@ -98,4 +100,50 @@ class StudentServiceImplTest extends Specification {
         1 * studentRepository.deleteAll()
 
     }
+
+//    def "Update - EntityNotFoundException"() {
+//        given:
+//        Long id = 1L
+//
+//        when:
+//        studentService.update(id, new StudentRequestDto())
+//
+//        then:
+//        1 * studentRepository.findById(id) >> Optional.empty()
+//        thrown(EntityNotFoundException)
+//
+//    }
+//
+//    def "Update - Successful Case"() {
+//
+//        given:
+//        Long id = 1L
+//        def nameB = "Nadir"
+//        def surnameB = "Jabbarli"
+//        def emailB = "NJabbarli1@pashabank.az"
+//
+//        def givenDto = new StudentRequestDto(
+//                name: nameB,
+//                surname: surnameB,
+//                email: emailB
+//        )
+//
+//        def expectedDto = new StudentDto(
+//                id: id,
+//                name: nameB,
+//                surname: surnameB
+//        )
+//
+//        StudentEntity entity = studentMapper.dtoToStudentEntityWithId(expectedDto, id)
+//
+//        when:
+//        studentService.update(id, givenDto)
+//
+//        then:
+////        1 * studentRepository.findById(id) >> Optional.of(studentEntityAfter)
+//        1 * studentRepository.save(entity)
+//        1 * studentMapper.entityToStudentDto(entity) >> expectedDto
+//        noExceptionThrown()
+//
+//    }
 }

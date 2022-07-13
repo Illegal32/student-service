@@ -39,16 +39,18 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentEntity save(StudentRequestDto studentRequestDto) {
+
         StudentEntity student = StudentMapper.INSTANCE.dtoToStudentEntity(studentRequestDto);
+        student = studentRepository.save(student);
         student.setEmail(generateStudentEmailAccount(student.getId(), student.getName(), student.getSurname()));
 
         return studentRepository.save(student);
     }
 
     @Override
-    public List<StudentDto> findAll() {
+    public List<StudentRequestDto> findAll() {
         return studentRepository.findAll().stream().
-                map(studentMapper::entityToStudentDto).collect(Collectors.toList());
+                map(studentMapper::entityToStudentRequestDto).collect(Collectors.toList());
     }
 
     @Override
@@ -67,6 +69,27 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.deleteAll();
     }
 
+    @Override
+    public StudentDto update(Long id, StudentRequestDto studentRequestDto) {
 
+        StudentDto studentDto = studentMapper.studentDto(id, studentRequestDto);
+
+        String email = generateStudentEmailAccount(studentDto.getId(), studentDto.getName(), studentDto.getSurname());
+
+        StudentEntity studentEntity = StudentMapper.INSTANCE.dtoToStudentEntityWithId(findByStudentId(id), id);
+        studentEntity.setEmail(email);
+
+        studentMapper.updateStudentFromDto(studentDto, studentEntity);
+
+        studentRepository.save(studentEntity);
+
+        return studentDto;
+    }
+
+    @Override
+    public StudentDto findByStudentId(Long id) {
+        StudentEntity studentEntity = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student Not Found"));
+
+        return studentMapper.entityToStudentDto(studentEntity);
+    }
 }
-

@@ -10,8 +10,10 @@ package az.pashabank.service;
 import az.pashabank.model.dto.StudentDto;
 import az.pashabank.model.dto.StudentRequestDto;
 import az.pashabank.model.entity.StudentEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 public interface StudentService {
 
@@ -19,12 +21,16 @@ public interface StudentService {
 
     StudentEntity save(StudentRequestDto studentRequestDto);
 
-    List<StudentDto> findAll();
+    List<StudentRequestDto> findAll();
 
     void deleteById(Long id);
 
     StudentDto findById(Long id);
 
     void deleteAll();
+
+    StudentDto update(Long id, StudentRequestDto studentRequestDto);
+
+    StudentDto findByStudentId(Long id);
 
 }
