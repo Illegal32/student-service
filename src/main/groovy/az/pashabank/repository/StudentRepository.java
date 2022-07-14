@@ -7,7 +7,6 @@
 
 package az.pashabank.repository;
 
-import az.pashabank.model.dto.StudentRequestDto;
 import az.pashabank.model.entity.StudentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

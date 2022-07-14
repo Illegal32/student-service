@@ -7,9 +7,9 @@
 #WORKDIR /home/gradle/src
 #RUN gradle build --no-daemon
 
-#MAINTAINER Nadir Jabbarli
-
 FROM openjdk:11-slim
+
+MAINTAINER Nadir Jabbarli
 
 WORKDIR /app
 
