@@ -1,0 +1,28 @@
+version: "3"
+services:
+  app:
+    build: .
+    container_name: app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/student_info
+    ports:
+      - 8080:8080
+#      - birinci olan cole cixan port, ikinci local olan
+    restart: always
+    depends_on:
+      - db
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=student_info
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - 5000:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+volumes:
+  pgdata:
